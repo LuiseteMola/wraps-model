@@ -1,0 +1,29 @@
+{
+  "name": "wraps-model",
+  "version": "1.0.0",
+  "description": "Model controller for NodeJS",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "author": "Luis Fernández",
+  "license": "MIT",
+  "dependencies": {
+    "wraps-base": "0.0.0",
+    "wraps-cache": "0.0.1",
+    "wraps-logger": "^1.0.4"
+  },
+  "devDependencies": {
+    "@types/knex": "^0.15.1",
+    "tslint-config-prettier": "^1.16.0"
+  }
+}

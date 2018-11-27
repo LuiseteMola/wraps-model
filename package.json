@@ -1,6 +1,6 @@
 {
   "name": "wraps-model",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Model controller for NodeJS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,8 +18,8 @@
   "author": "Luis Fernández",
   "license": "MIT",
   "dependencies": {
-    "wraps-base": "0.0.0",
-    "wraps-cache": "0.0.1",
+    "wraps-base": "^0.0.1",
+    "wraps-cache": "^0.0.1",
     "wraps-logger": "^1.0.4"
   },
   "devDependencies": {

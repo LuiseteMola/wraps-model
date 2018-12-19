@@ -7,16 +7,16 @@ import { configureDb } from './db';
 import { configureLogger } from './logger';
 
 interface ModelConfiguration {
-    dbConnector: DatabaseWrapper;
-    cacheConnector?: CacheWrapper;
-    logger?: Logger;
+  dbConnector: DatabaseWrapper;
+  cacheConnector?: CacheWrapper;
+  logger?: Logger;
 }
 
 /** Cache middleware configuration */
-export function configure (conf: ModelConfiguration) {
-    if (conf.dbConnector) configureDb(conf.dbConnector);
-    if (conf.cacheConnector) configureCache(conf.cacheConnector);
-    if (conf.logger) configureLogger(conf.logger);
+export function configure(conf: ModelConfiguration) {
+  if (conf.dbConnector) configureDb(conf.dbConnector);
+  if (conf.cacheConnector) configureCache(conf.cacheConnector);
+  if (conf.logger) configureLogger(conf.logger);
 }
 
-export { Model } from './model';
+export { Model, getModel } from './model';

@@ -20,3 +20,4 @@ export function configure(conf: ModelConfiguration) {
 }
 
 export { Model, getModel } from './model';
+export { getModelMetadata } from './modelMetadata';

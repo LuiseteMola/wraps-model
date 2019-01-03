@@ -23,7 +23,7 @@ export interface MetadataFieldList {
   [fieldName: string]: MetadataField;
 }
 
-export interface Metadata extends ModelMetadata{
+export interface Metadata extends ModelMetadata {
   /** Base table schema */
   schema?: string;
   /** Model table for data operations (insert/update/delete). It will be used for select when sql is not provided */

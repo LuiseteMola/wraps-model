@@ -23,11 +23,16 @@ export interface MetadataFieldList {
   [fieldName: string]: MetadataField;
 }
 
-export interface Metadata {
+export interface Metadata extends ModelMetadata{
   /** Base table schema */
   schema?: string;
   /** Model table for data operations (insert/update/delete). It will be used for select when sql is not provided */
   table: string;
+  /** SQL used for query */
+  sql: string;
+}
+
+export interface ModelMetadata {
   /** Model permissions (select/insert/update/delete) */
   permissions: {
     select: boolean;
@@ -43,8 +48,6 @@ export interface Metadata {
   rowLimit?: number;
   /** Primary key field list. Used for update/delete */
   primaryKey: Array<string>;
-  /** SQL used for query */
-  sql: string;
 }
 
 export type SQLOperator =

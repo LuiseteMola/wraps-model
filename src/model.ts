@@ -37,7 +37,7 @@ export class Model {
     this.globals = globals;
   }
 
-  public getMetadata (): Metadata {
+  public getMetadata(): Metadata {
     return this.metadata;
   }
 

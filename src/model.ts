@@ -27,6 +27,7 @@ interface ModelGlobals {
 
 export class Model {
   public globals: ModelGlobals;
+  public strictMode: boolean = false;
 
   private lastError: any;
   private metadata: Metadata;
@@ -67,7 +68,7 @@ export class Model {
   }
 
   public async insert(values: InsertValues): Promise<SQLInsertReturnData> {
-    const sql = db.sql.insert(values, '*').into(this.dbTable);
+    const sql = db.sql.insert(this.translateModelFields(values), '*').into(this.dbTable);
     logger.debug('Inserting into database...');
     const dbResult = await db.query(sql);
     logger.silly('DB Result: ', dbResult.rows);
@@ -79,8 +80,8 @@ export class Model {
   public async update(values: UpdateValues): Promise<SQLUpdateReturnData> {
     const sql = db
       .sql(this.dbTable)
-      .update(values.newValues, '*')
-      .where(values.oldValues);
+      .update(this.translateModelFields(values.newValues), '*')
+      .where(this.translateModelFields(values.oldValues));
     logger.debug('Updating database row...');
     const dbResult: DBQueryResult = await this.executeTransaction(sql);
     logger.silly('DB Result: ', dbResult);
@@ -94,7 +95,7 @@ export class Model {
     const sql = db
       .sql(this.dbTable)
       .delete('*')
-      .where(values);
+      .where(this.translateModelFields(values));
     logger.debug('Deleting database row...');
     const dbResult: DBQueryResult = await this.executeTransaction(sql);
     logger.silly('DB Result: ', dbResult);
@@ -154,6 +155,20 @@ export class Model {
     transaction.client.query('COMMIT');
     return dbResult;
   }
+
+  private translateModelFields(fields: { [name: string]: any }): { [name: string]: any } {
+    if (this.strictMode || this.metadata.columns.length === 0) return fields;
+
+    const dbFields: { [name: string]: any } = {};
+    if (!fields) return dbFields;
+
+    this.metadata.columns
+      .filter(col => fields.hasOwnProperty(col.field))
+      .map((col) => dbFields[col.columnName || col.field] = fields[col.field]);
+
+    return dbFields;
+  }
+
 }
 
 export async function getModel(modelName: string, globals?: ModelGlobals) {

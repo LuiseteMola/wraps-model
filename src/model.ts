@@ -164,11 +164,10 @@ export class Model {
 
     this.metadata.columns
       .filter(col => fields.hasOwnProperty(col.field))
-      .map((col) => dbFields[col.columnName || col.field] = fields[col.field]);
+      .map(col => (dbFields[col.columnName || col.field] = fields[col.field]));
 
     return dbFields;
   }
-
 }
 
 export async function getModel(modelName: string, globals?: ModelGlobals) {

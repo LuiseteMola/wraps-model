@@ -37,6 +37,10 @@ export class Model {
     this.globals = globals;
   }
 
+  public getMetadata (): Metadata {
+    return this.metadata;
+  }
+
   public async init(): Promise<Model> {
     this.metadata = await cache.getObjKey('model', this.modelName);
     if (!this.metadata) {
